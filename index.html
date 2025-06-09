@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WENCRYPTO - AI Destekli Canlı Kripto Fiyatları</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Ikonlar -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Custom Stiller ve Animasyonlar */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+        }
+
+        /* Arka plan gradient ve yıldız efekti */
+        .main-bg {
+            background-color: #0d1117;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+                radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+            background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
+            background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+        }
+        
+        /* Kartların animasyonlu girişi için */
+        @keyframes pop-in {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .crypto-card {
+            animation: pop-in 0.5s ease-out forwards;
+            border: 1px solid #30363d;
+            background: rgba(13, 17, 23, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .crypto-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 191, 255, 0.2);
+        }
+        
+        /* Fiyat değişim animasyonu */
+        @keyframes price-flash-green {
+            0% { background-color: rgba(16, 185, 129, 0.3); }
+            100% { background-color: transparent; }
+        }
+        
+        @keyframes price-flash-red {
+            0% { background-color: rgba(239, 68, 68, 0.3); }
+            100% { background-color: transparent; }
+        }
+
+        .price-up { animation: price-flash-green 0.7s ease-out; }
+        .price-down { animation: price-flash-red 0.7s ease-out; }
+
+        /* Yükleme Spinner'ı */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #06b6d4;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Analiz Butonu */
+        .analysis-btn {
+            background: linear-gradient(45deg, #0891b2, #06b6d4);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(6, 182, 212, 0.3);
+        }
+        .analysis-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.5);
+        }
+    </style>
+</head>
+<body class="main-bg">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-opacity-80 backdrop-blur-lg border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-rocket text-2xl text-cyan-400"></i>
+                <h1 class="text-2xl font-bold text-white tracking-wider">WENCRYPTO</h1>
+            </div>
+            <nav class="flex items-center space-x-6">
+                <a href="#" id="aboutLink" class="text-gray-300 hover:text-cyan-400 transition duration-300">Hakkımızda</a>
+                <a href="https://x.com/i/communities/1888955319390273879/" target="_blank" class="text-gray-300 hover:text-cyan-400 transition duration-300 text-xl">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Ana İçerik -->
+    <main class="container mx-auto px-6 py-12">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-white">AI Destekli Kripto Piyasası</h2>
+            <p class="text-gray-400 mt-4 text-lg">Yapay zeka analizleriyle en popüler kripto paraları takip edin.</p>
+        </div>
+        <div id="crypto-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Kripto kartları buraya JS ile eklenecek -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-20 py-8 border-t border-gray-800">
+        <div class="container mx-auto px-6 text-center text-gray-500">
+            <p>&copy; 2025 WENTRIUM. Tüm hakları saklıdır.</p>
+            <p class="mt-2">İletişim: <a href="mailto:info@wentrium.com" class="hover:text-cyan-400">info@wentrium.com</a></p>
+        </div>
+    </footer>
+
+    <!-- Modallar -->
+    <div id="aboutModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm hidden">
+        <div class="bg-[#161b22] border border-gray-700 rounded-xl shadow-2xl p-8 max-w-lg w-11/12 transform transition-all duration-300 scale-95 opacity-0 modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-white">WENCRYPTO Hakkında</h2>
+                <button class="close-btn text-gray-400 hover:text-white text-2xl">&times;</button>
+            </div>
+            <p class="text-gray-300 leading-relaxed">...</p>
+        </div>
+    </div>
+    
+    <div id="analysisModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm hidden">
+        <div class="bg-[#161b22] border border-gray-700 rounded-xl shadow-2xl p-8 max-w-2xl w-11/12 transform transition-all duration-300 scale-95 opacity-0 modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="analysis-title" class="text-2xl font-bold text-white">Analiz</h2>
+                <button class="close-btn text-gray-400 hover:text-white text-2xl">&times;</button>
+            </div>
+            <div id="analysis-content" class="text-gray-300 leading-relaxed whitespace-pre-wrap">
+                <!-- Analiz içeriği veya yükleyici buraya gelecek -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global Değişkenler
+        const cryptoContainer = document.getElementById('crypto-container');
+        let previousPrices = {};
+
+        // Gemini API Anahtarı (Boş bıraktım sen kendi anahtarını ekle) -Ömer Faruk DEMİR
+        const apiKey = ""; 
+
+        // API'den Veri Çekme  -Ömer Faruk DEMİR
+        async function fetchCryptoData() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false&price_change_percentage=1h,24h');
+                if (!response.ok) throw new Error(`API Hatası: ${response.status}`);
+                const data = await response.json();
+                localStorage.setItem('cryptoData', JSON.stringify(data));
+                return data;
+            } catch (error) {
+                console.error('Kripto verileri çekilirken hata oluştu:', error);
+                const cachedData = localStorage.getItem('cryptoData');
+                return cachedData ? JSON.parse(cachedData) : [];
+            }
+        }
+
+        // Sayı Formatlama  -Ömer Faruk DEMİR
+        function formatNumber(num) {
+            if (num === null || num === undefined) return '-';
+            return num.toLocaleString('tr-TR', { style: 'currency', currency: 'USD' });
+        }
+        
+        // Verileri Gösterme  -Ömer Faruk DEMİR
+        function displayCryptoData(coins) {
+            coins.forEach(coin => {
+                const hourChange = coin.price_change_percentage_1h_in_currency || 0;
+                const dayChange = coin.price_change_percentage_24h_in_currency || 0;
+                
+                const hourChangeClass = hourChange >= 0 ? 'text-green-400' : 'text-red-400';
+                const dayChangeClass = dayChange >= 0 ? 'text-green-400' : 'text-red-400';
+                const hourChangeIcon = hourChange >= 0 ? 'fa-arrow-trend-up' : 'fa-arrow-trend-down';
+                const dayChangeIcon = dayChange >= 0 ? 'fa-arrow-trend-up' : 'fa-arrow-trend-down';
+
+                const cardId = `card-${coin.id}`;
+                let card = document.getElementById(cardId);
+
+                if (!card) { // Kart yoksa oluştur  -Ömer Faruk DEMİR
+                    card = document.createElement('div');
+                    card.className = 'crypto-card rounded-xl p-6';
+                    card.id = cardId;
+                    cryptoContainer.appendChild(card);
+                }
+                
+                // Kart verilerini güncelle  -Ömer Faruk DEMİR
+                card.dataset.coinId = coin.id;
+                card.dataset.coinName = coin.name;
+                card.dataset.coinSymbol = coin.symbol;
+
+                let priceChangeClass = '';
+                if (previousPrices[coin.id] && coin.current_price > previousPrices[coin.id]) {
+                    priceChangeClass = 'price-up';
+                } else if (previousPrices[coin.id] && coin.current_price < previousPrices[coin.id]) {
+                    priceChangeClass = 'price-down';
+                }
+
+                card.innerHTML = `
+                    <div class="flex-grow">
+                        <div class="flex items-center space-x-4 mb-5">
+                            <img src="${coin.image}" class="w-12 h-12" alt="${coin.name} logosu" onerror="this.onerror=null;this.src='https://placehold.co/48x48/0d1117/c9d1d9?text=?';">
+                            <div>
+                                <h3 class="text-xl font-bold text-white">${coin.name}</h3>
+                                <p class="text-sm text-gray-400">${coin.symbol.toUpperCase()}</p>
+                            </div>
+                        </div>
+
+                        <div class="my-6 text-center">
+                            <p class="text-3xl font-semibold text-white ${priceChangeClass}" id="price-${coin.id}">
+                                ${formatNumber(coin.current_price)}
+                            </p>
+                        </div>
+
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between items-center"><span class="text-gray-400">1s Değişim</span><span class="${hourChangeClass} font-semibold flex items-center gap-1"><i class="fas ${hourChangeIcon}"></i> ${hourChange.toFixed(2)}%</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-400">24s Değişim</span><span class="${dayChangeClass} font-semibold flex items-center gap-1"><i class="fas ${dayChangeIcon}"></i> ${dayChange.toFixed(2)}%</span></div>
+                            <div class="flex justify-between items-center pt-2 border-t border-gray-800 mt-2"><span class="text-gray-400">Piyasa Değeri</span><span class="text-white font-medium">${formatNumber(coin.market_cap)}</span></div>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <button class="analysis-btn w-full text-white font-semibold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2">
+                            ✨ Analiz İste
+                        </button>
+                    </div>
+                `;
+                
+                previousPrices[coin.id] = coin.current_price;
+            });
+        }
+        
+        // Gemini API ile Analiz Alma Olayı  -Ömer Faruk DEMİR
+        async function getGeminiAnalysis(coinName, coinSymbol) {
+            const prompt = `Lütfen ${coinName} (${coinSymbol.toUpperCase()}) hakkında kısa ve anlaşılır bir analiz yap. Bu analizin içinde şu başlıklar olsun: 'Temel Amaç ve Teknoloji', 'Önemli Gelişmeler'. Finansal tavsiye verme. Cevabı Markdown formatında ve sadece Türkçe olarak hazırla.`;
+            
+            const payload = {
+                contents: [{ role: "user", parts: [{ text: prompt }] }]
+            };
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) {
+                   const error = await response.json();
+                   throw new Error(error.error.message);
+                }
+                const result = await response.json();
+                return result.candidates[0].content.parts[0].text;
+            } catch (error) {
+                console.error("Gemini API Hatası:", error);
+                return `Analiz alınırken bir hata oluştu: ${error.message}. Lütfen daha sonra tekrar deneyin.`;
+            }
+        }
+
+        // Modal Yönetimi  -Ömer Faruk DEMİR
+        function setupModals() {
+            document.querySelectorAll('.modal-content').forEach(modalContent => {
+                 modalContent.closest('.fixed').addEventListener('click', (e) => {
+                    if (e.target === modalContent.closest('.fixed')) {
+                        hideModal(modalContent.closest('.fixed').id);
+                    }
+                });
+                modalContent.querySelector('.close-btn').addEventListener('click', () => {
+                     hideModal(modalContent.closest('.fixed').id);
+                });
+            });
+
+            document.getElementById('aboutLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('aboutModal').querySelector('.modal-content p').innerHTML = `WENCRYPTO, kar amacı gütmeyen, kripto para birimlerini analiz eden ve anlık olarak fiyatlarını gösteren haberler yayınlayan bir kuruluştur. Bize ulaşmak için X hesabımızı takip edebilir veya <a href="mailto:info@wentrium.com" class="text-cyan-400 hover:underline">info@wentrium.com</a> adresine e-posta gönderebilirsiniz.`;
+                showModal('aboutModal');
+            });
+        }
+
+        function showModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.querySelector('.modal-content').classList.remove('scale-95', 'opacity-0'), 10);
+        }
+
+        function hideModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.querySelector('.modal-content').classList.add('scale-95', 'opacity-0');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        // Analiz Butonu Tıklama Olayını Buradan Düzenle -Ömer Faruk DEMİR
+        cryptoContainer.addEventListener('click', async (e) => {
+            const button = e.target.closest('.analysis-btn');
+            if (button) {
+                e.stopPropagation();
+                const card = button.closest('.crypto-card');
+                const { coinName, coinSymbol } = card.dataset;
+
+                const analysisModal = document.getElementById('analysisModal');
+                const analysisTitle = document.getElementById('analysis-title');
+                const analysisContent = document.getElementById('analysis-content');
+
+                analysisTitle.textContent = `${coinName} Analizi`;
+                analysisContent.innerHTML = `<div class="flex flex-col items-center justify-center gap-4"><div class="loader"></div><p>Yapay zeka analizi hazırlanıyor...</p></div>`;
+                showModal('analysisModal');
+                
+                button.disabled = true;
+                button.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i> Analiz Ediliyor...`;
+
+                const analysisText = await getGeminiAnalysis(coinName, coinSymbol);
+                analysisContent.textContent = analysisText;
+                
+                button.disabled = false;
+                button.innerHTML = `✨ Analiz İste`;
+            }
+        });
+
+        // Başlangıç Fonksiyonu  -Ömer Faruk DEMİR
+        async function init() {
+            setupModals();
+            const cachedData = localStorage.getItem('cryptoData');
+            if (cachedData) displayCryptoData(JSON.parse(cachedData));
+
+            const coins = await fetchCryptoData();
+            if (coins.length > 0) displayCryptoData(coins);
+
+            setInterval(async () => {
+                const updatedCoins = await fetchCryptoData();
+                if (updatedCoins.length > 0) displayCryptoData(updatedCoins);
+            }, 5000);
+        }
+
+        init();
+    </script>
+</body>
+</html>
