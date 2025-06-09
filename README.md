@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/7b685aba-0bc7-483c-9a5a-b5a671cd286a)
+
 🚀 WENCRYPTO ile Kripto Piyasasına Yapay Zeka Dokunuşu! 🚀
 
 Kripto para takibini sıradanlıktan çıkarıp geleceğe taşıyan projemiz WENCRYPTO ile tanışın! Artık sadece fiyatları izlemekle kalmayacak, yatırımlarınıza yön verecek derinlemesine bilgilere anında ulaşacaksınız. 🤖✨
